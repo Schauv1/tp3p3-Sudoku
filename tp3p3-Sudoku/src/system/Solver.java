@@ -13,7 +13,6 @@ public class Solver {
 		int[][] valid_solution;
 		_grid = grid;
 		valid_solution = solveSingleNumbersAndCopyGrid();
-		printout(valid_solution);
 		HashSet<Integer> existantValues = new HashSet<Integer>();
 		Subgrilla sub;
 		for (int y = 0; y < grid.length(); y++) {
@@ -27,7 +26,6 @@ public class Solver {
 					_lastGuess.add(generatePossibleValue(existantValues));
 					valid_solution[y][x] = _lastGuess.peek();
 					_lastGuessPosition.add(new Integer[] {y,x});
-					//System.out.println(_lastGuess);
 					return bruteForceIt(valid_solution);
 				}
 			}
@@ -38,14 +36,6 @@ public class Solver {
 	public int[][] bruteForceIt(int[][] current_grid) {
 		int[][] valid_solution = solveSingleNumbers(current_grid);
 		HashSet<Integer> existantValues = new HashSet<Integer>();
-		/*
-		try {
-			Thread.sleep (5 *1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		Subgrilla sub;
 		for (int y = 0; y < _grid.length(); y++) {
 			for (int x = 0; x < _grid.length(); x++) {
@@ -61,7 +51,6 @@ public class Solver {
 						_lastGuess.add(generatePossibleValue(existantValues));
 						valid_solution[y][x] = _lastGuess.peek();
 						_lastGuessPosition.add(new Integer[] {y,x});
-						//System.out.println(_lastGuess.peek() + "\n\n" + existantValues + "\n");
 						return bruteForceIt(valid_solution);
 					}
 				}
@@ -74,7 +63,6 @@ public class Solver {
 		HashSet<Integer> existantValues = new HashSet<Integer>();
 		int[][] valid_solution = current_grid;
 		valid_solution[errors[0]][errors[1]] = 0;
-		printout(valid_solution);
 		Subgrilla sub = new Subgrilla(valid_solution,errors[0],errors[1]);
 		existantValues.addAll(getAllRowValuesFor(errors[0], valid_solution));
 		existantValues.addAll(getAllColumnValuesFor(errors[1], valid_solution));
@@ -103,7 +91,6 @@ public class Solver {
 						_lastGuess.add(generatePossibleValue(existantValues));
 						valid_solution[y][x] = _lastGuess.peek();
 						_lastGuessPosition.add(new Integer[] {y,x});
-						//System.out.println(existantValues.size() + "  " + _lastGuess.peek() + "\n\n" + existantValues + "\n");
 					}
 				}
 			}
@@ -139,7 +126,6 @@ public class Solver {
 						_lastGuess.add(generatePossibleValue(existantValues));
 						valid_solution[y][x] = _lastGuess.peek();
 						_lastGuessPosition.add(new Integer[] {y,x});
-						//System.out.println(existantValues.size() + "  " +_lastGuess.peek() + "\n\n" + existantValues + "\n");
 					}
 				}
 			}
@@ -187,15 +173,5 @@ public class Solver {
 		}
 		return 0;
 	}
-	
-	private void printout(int[][] current_grid) {
-		for (int y = 0; y < _grid.length(); y++) {
-			System.out.print("[");
-			for (int x = 0; x < _grid.length(); x++) {
-				System.out.print(current_grid[y][x] + ", ");
-			}
-			System.out.println("]");
-		}
-		System.out.println("");
-	}
+
 }
